@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta name="description" content="Lokale Geburtszeit in mittlere und wahre Ortszeit umrechnen. Deutsch und Englisch, ohne externe Berechnungsdienste.">
+  <title>Zeitkorrektur · Yi Jing</title>
+  <link rel="icon" href="./sun.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <main class="widget">
+    <header class="masthead">
+      <a class="brand" href="./" aria-label="Yi Jing Solar Time"><img src="./sun.svg" width="34" height="34" alt=""><span>YI JING <span class="brand-divider">/</span> <span class="brand-light">SOLAR TIME</span></span></a>
+      <nav class="language" aria-label="Language / Sprache">
+        <button type="button" data-language="de" lang="de" aria-pressed="true">DE</button>
+        <button type="button" data-language="en" lang="en" aria-pressed="false">EN</button>
+      </nav>
+    </header>
+
+    <section class="intro">
+      <p class="eyebrow" data-i18n="eyebrow">ZEIT IM EINKLANG MIT DER SONNE</p>
+      <h1 data-i18n="title">Jeder Ort hat seine Zeit.</h1>
+      <p class="intro-text" data-i18n="intro">Von der Uhrzeit zur Sonnenzeit. Berechne die mittlere und wahre Ortszeit für deinen Geburtsort.</p>
+    </section>
+
+    <div class="workspace">
+      <section class="input-panel" aria-labelledby="input-title">
+        <div class="section-heading"><span class="step">01</span><h2 id="input-title" data-i18n="inputTitle">Deine Angaben</h2><button class="text-button" id="example" type="button" data-i18n="example">Beispiel laden</button></div>
+        <form id="calculator" novalidate>
+          <div class="two-fields">
+            <div class="field"><label for="date" data-i18n="date">Geburtsdatum</label><input id="date" name="date" type="date" min="1900-01-01" max="2100-12-31" value="2020-01-31" required><span class="field-hint" data-i18n="dateHint">Jahre 1900–2100</span></div>
+            <div class="field"><label for="time" data-i18n="time">Lokale Uhrzeit</label><input id="time" name="time" type="time" step="1" value="15:00:00" required><span class="field-hint" data-i18n="timeHint">Wie am Geburtsort aufgezeichnet</span></div>
+          </div>
+          <div class="field"><label for="country" data-i18n="country">Land</label><select id="country" name="country" disabled><option data-i18n="loading">Daten werden geladen …</option></select></div>
+          <div class="field city-field">
+            <label for="city" data-i18n="city">Geburtsort</label>
+            <div class="search-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="m16 16 5 5"></path></svg><input id="city" name="city" type="search" role="combobox" aria-expanded="false" aria-controls="city-results" aria-autocomplete="list" autocomplete="off" data-placeholder="cityPlaceholder" placeholder="Stadt suchen …" disabled></div>
+            <ul id="city-results" class="city-results" role="listbox" hidden aria-label="Orte"></ul>
+            <span id="city-help" class="field-hint" data-i18n="cityHint">Ort auswählen oder Koordinaten unten eingeben.</span>
+          </div>
+          <div class="chosen-place" id="chosen-place" hidden><span class="location-dot" aria-hidden="true"></span><div><strong id="place-name"></strong><span id="place-detail"></span></div><span class="place-check" aria-hidden="true">✓</span></div>
+
+          <details id="advanced" class="advanced">
+            <summary data-i18n="advanced">Koordinaten & Zeitzone bearbeiten</summary>
+            <div class="advanced-fields">
+              <p class="field-hint" data-i18n="manualHint">Für fehlende Orte: Längengrad und Zeitzone selbst eingeben. Die Zeitzone lässt sich nicht allein aus dem Längengrad ableiten.</p>
+              <div class="field"><label for="longitude" data-i18n="longitudeInput">Längengrad (Dezimalgrad)</label><div class="longitude-entry"><input id="longitude" name="longitude" type="text" inputmode="decimal" placeholder="15,4395" required><button id="longitude-sign" type="button" data-aria="changeSign" aria-label="Vorzeichen wechseln: Ost oder West">±</button></div><span class="field-hint" data-i18n="longitudeHint">Ost positiv, West negativ · −180 bis +180</span></div>
+              <div class="field"><label for="zone" data-i18n="zoneInput">Zeitzone des Ortes</label><input id="zone" name="zone" type="text" list="zone-options" placeholder="Europe/Vienna" autocomplete="off" required><datalist id="zone-options"></datalist></div>
+              <label class="checkbox-label"><input id="override" name="override" type="checkbox"><span data-i18n="override">Historischen UTC-Abstand manuell vorgeben</span></label>
+              <div class="field" id="offset-field" hidden><label for="offset" data-i18n="offsetInput">Abstand zu UTC, inklusive Sommerzeit</label><input id="offset" name="offset" type="text" inputmode="text" value="+01:00" placeholder="+01:00" aria-describedby="offset-help"><span class="field-hint" id="offset-help" data-i18n="offsetHint">±HH:MM oder ±HH:MM:SS. Ersetzt die automatische Zeitzonenregel vollständig.</span></div>
+            </div>
+          </details>
+          <div id="ambiguity" class="notice" hidden><label for="occurrence" data-i18n="ambiguous">Diese Uhrzeit kommt zweimal vor. Welche ist gemeint?</label><select id="occurrence"><option value="" data-i18n="chooseOccurrence">Bitte auswählen</option></select></div>
+          <p id="error" class="error" role="alert" hidden></p>
+          <button id="calculate" class="calculate" type="submit" disabled><span data-i18n="calculate">Sonnenzeit berechnen</span><span aria-hidden="true">↗</span></button>
+          <p class="privacy"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="3"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg><span data-i18n="privacy">Deine Eingaben bleiben in diesem Browser.</span></p>
+        </form>
+      </section>
+
+      <section class="output-panel" aria-labelledby="output-title">
+        <div class="section-heading"><span class="step">02</span><h2 id="output-title" data-i18n="outputTitle">Deine Sonnenzeit</h2><span id="sample-badge" class="badge" data-i18n="sample">BEISPIEL</span></div>
+        <div id="empty-result" class="empty-result"><div class="sun-orbit" aria-hidden="true"><span>☉</span></div><h3 data-i18n="emptyTitle">Ein anderer Blick auf die Zeit.</h3><p data-i18n="emptyText">Gib Datum, Uhrzeit und Ort ein. Hier siehst du, wie sich die Uhrzeit in Sonnenzeit übersetzt.</p></div>
+        <div id="result" hidden aria-live="polite" aria-atomic="true">
+          <div class="solar-hero"><div class="orbit-art" aria-hidden="true"><span></span></div><p class="eyebrow" data-i18n="apparent">WAHRE ORTSZEIT · WOZ</p><div id="apparent-clock" class="solar-clock"></div><p id="apparent-date" class="solar-date"></p><p id="correction" class="correction"></p></div>
+          <dl class="results-list">
+            <div><dt data-i18n="longitudeResult">Längengrad</dt><dd><strong id="longitude-result"></strong><small id="longitude-degrees"></small></dd></div>
+            <div><dt data-i18n="zoneResult">Zeitzone am gewählten Datum</dt><dd><strong id="offset-result"></strong><small id="zone-result"></small><small id="dst-result"></small></dd></div>
+            <div><dt><span data-i18n="mean">Mittlere Ortszeit</span><small>MOZ / LMST</small></dt><dd><strong id="mean-clock"></strong><small id="mean-date"></small></dd></div>
+            <div><dt><span data-i18n="equation">Zeitgleichung</span><small data-i18n="equationHint">Wahre − mittlere Ortszeit</small></dt><dd><strong id="equation-result"></strong><small data-i18n="minutesSeconds">Minuten : Sekunden</small></dd></div>
+          </dl>
+          <p id="historical" class="notice" hidden data-i18n="historical">Vor 1970 sind historische Zeitzonendaten nicht überall vollständig. Prüfe den angezeigten UTC-Abstand; bei Bedarf kannst du ihn manuell vorgeben.</p>
+          <details class="breakdown"><summary data-i18n="breakdown">Rechenweg ansehen</summary><dl><div><dt>UTC</dt><dd id="utc-result"></dd></div><div><dt data-i18n="longitudeShift">Längengrad-Korrektur ab UTC</dt><dd id="longitude-shift"></dd></div><div><dt data-i18n="totalCorrection">Gesamtkorrektur der Uhrzeit</dt><dd id="total-correction"></dd></div></dl><p data-i18n="formula">MOZ = UTC + Längengrad × 4 Minuten. WOZ = MOZ + Zeitgleichung. Ein Datumswechsel wird mitgerechnet.</p><p class="field-hint" data-i18n="accuracy">Nach dem astronomischen Modell der Yi-Jing-App. Sekunden sind gerundete Rechenwerte; die Genauigkeit hängt auch von Geburtsangaben und historischen Zeitzonendaten ab.</p></details>
+        </div>
+      </section>
+    </div>
+
+    <aside class="app-promo" aria-labelledby="app-promo-title">
+      <div class="promo-identity"><img class="promo-icon" src="./app-icon.png" width="84" height="84" alt="YiJing Astro" loading="lazy"><span class="promo-app-name">YiJing Astro</span></div>
+      <div class="promo-copy"><p class="promo-eyebrow" data-i18n="promoEyebrow">DIE APP ZUM WIDGET</p><h2 id="app-promo-title" data-i18n="promoTitle">Deine Sonnenzeit ist erst der Anfang.</h2><p data-i18n="promoText">Entdecke die volle Yi-Jing-Astrologie: Lebenshexagramme, Zeitspiegel und deine persönlichen Profile – in einer App.</p><p class="promo-features" data-i18n="promoFeatures">Lebenshexagramme · Jahres-, Monats- & Tagesansichten · Profile & Notizen</p></div>
+      <div class="promo-action"><a class="store-link" data-app-store href="https://apps.apple.com/us/app/yijing-astro/id6792803742" target="_blank" rel="noopener noreferrer"><span data-i18n="promoCta">Im App Store herunterladen</span><span aria-hidden="true">↗</span></a><span class="promo-platform" data-i18n="promoPlatform">Für iPhone & iPad</span></div>
+    </aside>
+
+    <footer class="footer"><p><span class="footer-sun" aria-hidden="true">☉</span><span data-i18n="footer">Die Uhr folgt der Zeitzone. Die Sonne folgt dem Ort.</span></p><details><summary data-i18n="dataSources">Daten & Hinweise</summary><p id="data-version"></p><p data-i18n="coverage">Ortsliste: weltweit größere Städte und Hauptstädte; zusätzliche Orte in Österreich, Deutschland und der Schweiz. Fehlende Orte können manuell eingegeben werden.</p><p><span data-i18n="sources">Ortsdaten:</span> <a href="https://www.geonames.org/" target="_blank" rel="noopener noreferrer">GeoNames</a> · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>. <span data-i18n="zoneSource">Zeitzonen:</span> <a href="https://www.iana.org/time-zones" target="_blank" rel="noopener noreferrer">IANA</a>. <a href="./NOTICE.txt" data-i18n="notices">Quellenhinweise</a>.</p><p data-i18n="noStorage">Keine Cookies, keine Analysewerkzeuge, keine Speicherung deiner Geburtsangaben. Ortssuche und Berechnung erfolgen lokal mit den mitgelieferten Daten.</p></details></footer>
+    <dialog id="app-promo-dialog" class="promo-dialog" aria-labelledby="promo-dialog-title" aria-describedby="promo-dialog-text">
+      <div class="promo-dialog-cover"><img src="./app-icon.png" width="80" height="80" alt="YiJing Astro"><span>YiJing Astro</span><button type="button" class="promo-close" data-promo-dismiss data-aria="promoClose" aria-label="App-Hinweis schließen" autofocus>×</button></div>
+      <div class="promo-dialog-body"><p class="promo-eyebrow" data-i18n="promoDialogEyebrow">VON DER SONNENZEIT ZU DEINEM YI JING</p><h2 id="promo-dialog-title" data-i18n="promoDialogTitle">Mehr entdecken. Zusammenhänge erkennen.</h2><p id="promo-dialog-text" data-i18n="promoDialogText">Deine Zeitkorrektur ist berechnet. Mit YiJing Astro gehst du weiter: Erkunde deine Lebenshexagramme und verfolge ihre Entwicklung im Zeitspiegel.</p>
+      <ul class="promo-benefits"><li data-i18n="promoBenefitLife">Persönliche Lebens- und Entwicklungshexagramme</li><li data-i18n="promoBenefitTime">Jahres-, Monats- und Tagesansichten</li><li data-i18n="promoBenefitProfiles">Geburtsprofile und eigene Notizen an einem Ort</li></ul>
+      <a class="store-link" data-app-store href="https://apps.apple.com/us/app/yijing-astro/id6792803742" target="_blank" rel="noopener noreferrer"><span data-i18n="promoCta">Im App Store herunterladen</span><span aria-hidden="true">↗</span></a><p class="promo-platform" data-i18n="promoPlatform">Für iPhone & iPad</p><button type="button" class="promo-later" data-promo-dismiss data-i18n="promoLater">Weiter zum Ergebnis</button></div>
+    </dialog>
+    <noscript><p class="error">Bitte JavaScript aktivieren, um den Rechner zu verwenden. / Please enable JavaScript to use this calculator.</p></noscript>
+  </main>
+</body>
+</html>

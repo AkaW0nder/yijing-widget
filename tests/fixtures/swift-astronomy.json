@@ -1,0 +1,434 @@
+[
+  {
+    "civilUTC": [
+      1900,
+      1,
+      1,
+      0,
+      0
+    ],
+    "equationSeconds": -205.7900960913048,
+    "julianDate": 2415020.5,
+    "rawDegrees": -0.8574587337138007
+  },
+  {
+    "civilUTC": [
+      1976,
+      12,
+      11,
+      15,
+      5
+    ],
+    "equationSeconds": 393.89636204611634,
+    "julianDate": 2443124.128472222,
+    "rawDegrees": 1.641234841858822
+  },
+  {
+    "civilUTC": [
+      2020,
+      1,
+      31,
+      14,
+      0
+    ],
+    "equationSeconds": -802.0933763777157,
+    "julianDate": 2458880.0833333335,
+    "rawDegrees": -3.342055734907125
+  },
+  {
+    "civilUTC": [
+      2100,
+      12,
+      31,
+      23,
+      59
+    ],
+    "equationSeconds": -184.70636350067252,
+    "julianDate": 2488434.4993055556,
+    "rawDegrees": -0.7696098479194441
+  },
+  {
+    "civilUTC": [
+      2026,
+      1,
+      15,
+      12,
+      0
+    ],
+    "equationSeconds": -563.3321038651502,
+    "julianDate": 2461056,
+    "rawDegrees": -2.347217099438086
+  },
+  {
+    "civilUTC": [
+      2026,
+      2,
+      15,
+      12,
+      0
+    ],
+    "equationSeconds": -844.1141292310022,
+    "julianDate": 2461087,
+    "rawDegrees": -3.517142205129143
+  },
+  {
+    "civilUTC": [
+      2026,
+      3,
+      15,
+      12,
+      0
+    ],
+    "equationSeconds": -532.3169894159764,
+    "julianDate": 2461115,
+    "rawDegrees": -2.2179874558998938
+  },
+  {
+    "civilUTC": [
+      2026,
+      4,
+      15,
+      12,
+      0
+    ],
+    "equationSeconds": -0.16576498946051288,
+    "julianDate": 2461146,
+    "rawDegrees": -0.0006906874560785718
+  },
+  {
+    "civilUTC": [
+      2026,
+      5,
+      15,
+      12,
+      0
+    ],
+    "equationSeconds": 219.9802430924501,
+    "julianDate": 2461176,
+    "rawDegrees": 0.9165843462185888
+  },
+  {
+    "civilUTC": [
+      2026,
+      6,
+      15,
+      12,
+      0
+    ],
+    "equationSeconds": -30.09648772649598,
+    "julianDate": 2461207,
+    "rawDegrees": -0.1254020321937157
+  },
+  {
+    "civilUTC": [
+      2026,
+      7,
+      15,
+      12,
+      0
+    ],
+    "equationSeconds": -360.5845100881925,
+    "julianDate": 2461237,
+    "rawDegrees": -1.5024354587008053
+  },
+  {
+    "civilUTC": [
+      2026,
+      8,
+      15,
+      12,
+      0
+    ],
+    "equationSeconds": -270.26622984876667,
+    "julianDate": 2461268,
+    "rawDegrees": -1.12610929103656
+  },
+  {
+    "civilUTC": [
+      2026,
+      9,
+      15,
+      12,
+      0
+    ],
+    "equationSeconds": 287.0528476687741,
+    "julianDate": 2461299,
+    "rawDegrees": 1.1960535319532246
+  },
+  {
+    "civilUTC": [
+      2026,
+      10,
+      15,
+      12,
+      0
+    ],
+    "equationSeconds": 853.1920811839791,
+    "julianDate": 2461329,
+    "rawDegrees": 3.5549670049332285
+  },
+  {
+    "civilUTC": [
+      2026,
+      11,
+      15,
+      12,
+      0
+    ],
+    "equationSeconds": 924.6087941644237,
+    "julianDate": 2461360,
+    "rawDegrees": 3.852536642351783
+  },
+  {
+    "civilUTC": [
+      2026,
+      12,
+      15,
+      12,
+      0
+    ],
+    "equationSeconds": 292.87230369764984,
+    "julianDate": 2461390,
+    "rawDegrees": 1.2203012654068401
+  },
+  {
+    "civilUTC": [
+      2026,
+      3,
+      19,
+      0,
+      0
+    ],
+    "equationSeconds": -472.336035608987,
+    "julianDate": 2461118.5,
+    "rawDegrees": -1.9680668150374618
+  },
+  {
+    "civilUTC": [
+      2026,
+      3,
+      19,
+      6,
+      0
+    ],
+    "equationSeconds": -467.9704466017756,
+    "julianDate": 2461118.75,
+    "rawDegrees": -1.9498768608407606
+  },
+  {
+    "civilUTC": [
+      2026,
+      3,
+      19,
+      12,
+      0
+    ],
+    "equationSeconds": -463.59539884433616,
+    "julianDate": 2461119,
+    "rawDegrees": -1.9316474951847766
+  },
+  {
+    "civilUTC": [
+      2026,
+      3,
+      19,
+      18,
+      0
+    ],
+    "equationSeconds": -459.21114329068587,
+    "julianDate": 2461119.25,
+    "rawDegrees": -1.913379763711206
+  },
+  {
+    "civilUTC": [
+      2026,
+      3,
+      20,
+      0,
+      0
+    ],
+    "equationSeconds": -454.817930283225,
+    "julianDate": 2461119.5,
+    "rawDegrees": -1.8950747095134242
+  },
+  {
+    "civilUTC": [
+      2026,
+      3,
+      20,
+      6,
+      0
+    ],
+    "equationSeconds": -450.41600988580285,
+    "julianDate": 2461119.75,
+    "rawDegrees": -1.8767333745242156
+  },
+  {
+    "civilUTC": [
+      2026,
+      3,
+      20,
+      12,
+      0
+    ],
+    "equationSeconds": -446.00563217752097,
+    "julianDate": 2461120,
+    "rawDegrees": -1.858356800739663
+  },
+  {
+    "civilUTC": [
+      2026,
+      3,
+      20,
+      18,
+      0
+    ],
+    "equationSeconds": -441.5870476188411,
+    "julianDate": 2461120.25,
+    "rawDegrees": 358.16005396825483
+  },
+  {
+    "civilUTC": [
+      2026,
+      3,
+      21,
+      0,
+      0
+    ],
+    "equationSeconds": -437.1605073626324,
+    "julianDate": 2461120.5,
+    "rawDegrees": 358.17849788598903
+  },
+  {
+    "civilUTC": [
+      2026,
+      3,
+      21,
+      6,
+      0
+    ],
+    "equationSeconds": -432.7262636060641,
+    "julianDate": 2461120.75,
+    "rawDegrees": 358.1969739016414
+  },
+  {
+    "civilUTC": [
+      2026,
+      3,
+      21,
+      12,
+      0
+    ],
+    "equationSeconds": -428.284569926127,
+    "julianDate": 2461121,
+    "rawDegrees": 358.2154809586411
+  },
+  {
+    "civilUTC": [
+      2026,
+      3,
+      21,
+      18,
+      0
+    ],
+    "equationSeconds": -423.8356815960833,
+    "julianDate": 2461121.25,
+    "rawDegrees": 358.2340179933496
+  },
+  {
+    "civilUTC": [
+      2026,
+      3,
+      22,
+      0,
+      0
+    ],
+    "equationSeconds": -419.3798559205243,
+    "julianDate": 2461121.5,
+    "rawDegrees": 358.2525839336644
+  },
+  {
+    "civilUTC": [
+      2026,
+      3,
+      22,
+      6,
+      0
+    ],
+    "equationSeconds": -414.9173525242077,
+    "julianDate": 2461121.75,
+    "rawDegrees": 358.2711776978158
+  },
+  {
+    "civilUTC": [
+      2026,
+      3,
+      22,
+      12,
+      0
+    ],
+    "equationSeconds": -410.44843363672044,
+    "julianDate": 2461122,
+    "rawDegrees": -1.7102018068196074
+  },
+  {
+    "civilUTC": [
+      2026,
+      3,
+      22,
+      18,
+      0
+    ],
+    "equationSeconds": -405.97336436925616,
+    "julianDate": 2461122.25,
+    "rawDegrees": -1.6915556848718374
+  },
+  {
+    "civilUTC": [
+      2026,
+      3,
+      23,
+      0,
+      0
+    ],
+    "equationSeconds": -401.4924129314204,
+    "julianDate": 2461122.5,
+    "rawDegrees": -1.6728850538808784
+  },
+  {
+    "civilUTC": [
+      2026,
+      3,
+      23,
+      6,
+      0
+    ],
+    "equationSeconds": -397.0058508787588,
+    "julianDate": 2461122.75,
+    "rawDegrees": -1.6541910453282214
+  },
+  {
+    "civilUTC": [
+      2026,
+      3,
+      23,
+      12,
+      0
+    ],
+    "equationSeconds": -392.5139532830144,
+    "julianDate": 2461123,
+    "rawDegrees": -1.635474805345915
+  },
+  {
+    "civilUTC": [
+      2026,
+      3,
+      23,
+      18,
+      0
+    ],
+    "equationSeconds": -388.01699889499105,
+    "julianDate": 2461123.25,
+    "rawDegrees": -1.6167374953957587
+  }
+]

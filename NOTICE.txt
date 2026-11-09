@@ -1,0 +1,60 @@
+Yi Jing Solar Time Widget — source and data notices
+
+ASTRONOMICAL IMPLEMENTATION
+Ported from this repository's Astronomy.swift and VSOP87D.swift by Kiron
+Geiger, copyright 2016 HTL Villach. The app also contains work by Philipp
+Gutschi, copyright 2015 HTL Villach. Original ownership notices are preserved.
+Methods reference Jean Meeus, Astronomical Algorithms, VSOP87D Earth series,
+nutation terms, and Laskar's obliquity polynomial. The final equation-of-time
+angle is normalized in this web implementation to fix a full-turn artifact.
+The app's UTC-based time-scale convention is preserved; no TT/UT1 refinement
+or absolute second-level accuracy is claimed.
+
+No new open-source license is applied to the repository or derived code.
+Confirm code, coefficient and content rights before public redistribution.
+
+PLACE DATA
+GeoNames, https://www.geonames.org/
+Source: https://download.geonames.org/export/dump/cities1000.zip
+Region names: admin1CodesASCII.txt; country names: countryInfo.txt.
+Snapshot downloaded 2026-10-26. Coverage is filtered to population >=15000
+and capitals worldwide, plus all AT/DE/CH entries in the cities1000 extract.
+Adaptations: filtered, indexed by country, converted to JSON, names and aliases
+retained, no implication of endorsement. Data provided without warranty.
+Licensed under Creative Commons Attribution 4.0 International (CC BY 4.0):
+https://creativecommons.org/licenses/by/4.0/
+Machine-readable coverage, counts and input checksums: data/manifest.json.
+
+TIME ZONES
+IANA Time Zone Database 2026e, https://www.iana.org/time-zones
+Exported using Python zoneinfo from the official 2026e sources, compiled
+with `make main.zi PACKRATDATA=backzone PACKRATLIST=zone.tab` and `zic -b fat`.
+This retains extra pre-1970 locality records that a default system build may
+merge with another zone. The profile is recorded as backzone-zone.tab.
+Includes exact explicit transitions and future POSIX-rule expansion through
+2100. Each row gives [UTC seconds, total offset seconds, daylight adjustment
+seconds, abbreviation]. UTC rows are padded around the supported civil range
+1900-01-01 through 2100-12-31. Rules beyond the snapshot date are predictions
+and must be refreshed when legislation changes.
+IANA tz database data is public domain; see https://data.iana.org/time-zones/tz-link.html
+Historical locality coverage before 1970 is incomplete in some regions.
+Manual offset overrides must come from the user's documented source.
+
+PRIVACY
+No cookies, analytics, accounts or persistent storage. Runtime requests load
+only bundled files from the widget's own host. Search and calculations run in
+the browser. The host may keep ordinary access logs; no entered birth data
+is placed in request URLs, transmitted for calculations, or sent to the parent
+page. Same-origin embedding messages contain only the widget's height.
+
+APP INVITATION
+The banner and optional post-calculation invitation promote the owner's
+YiJing Astro app: https://apps.apple.com/us/app/yijing-astro/id6792803742
+Artwork is the existing AppIcon-180.png from this repository, hosted locally.
+The invitation requires three distinct successful user calculations and at
+least 90 seconds since loading, then waits 2.5 seconds. It appears at most
+once per page load. Example calculations and language switches do not count.
+The count, delay and dismissal state exist only in memory; no analytics,
+cookies or persistent identifiers are used. Apple is contacted only when
+the visitor follows an App Store link. Advertised features were checked
+against Apple's public App Store lookup for this app on 2026-11-08.
