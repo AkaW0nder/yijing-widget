@@ -1,11 +1,17 @@
 # YiJing Widget · Zeitkorrektur
 
-[**Rechner öffnen**](https://akaw0nder.github.io/yijing-widget/) · [YiJing Astro im App Store](https://apps.apple.com/us/app/yijing-astro/id6792803742)
+[YiJing Astro im App Store](https://apps.apple.com/us/app/yijing-astro/id6792803742)
 
 Eigenständiger deutscher und englischer Rechner für mittlere und wahre Ortszeit.
 Geburtsdatum, lokale Uhrzeit und Geburtsort eingeben; das Widget zeigt Längengrad,
 UTC-Abstand einschließlich saisonaler Anpassung, mittlere Ortszeit (MOZ/LMST),
 Zeitgleichung und wahre Ortszeit (WOZ). Der vollständige Rechenweg ist einsehbar.
+
+## Veröffentlichungsstatus
+
+Stand 9. November 2026: Das Repository ist privat; GitHub Pages ist vorbereitet,
+aber noch nicht aktiviert. Die unten genannten Vorschau-Adressen werden erst
+nach der Freigabe und Veröffentlichung erreichbar.
 
 ## Auf GitHub Pages testen
 
