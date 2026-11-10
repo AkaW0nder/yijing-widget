@@ -36,7 +36,7 @@ test('runtime scripts and styles are self-hosted and contain no persistence/trac
   const root = new URL('../', import.meta.url);
   const html = await readFile(new URL('index.html', root), 'utf8');
   assert.ok(!/<(?:script|link|img)[^>]+(?:src|href)=["']https?:/i.test(html));
-  for (const name of ['app.js', 'embed.js', 'promotion.js', 'style.css']) {
+  for (const name of ['app.js', 'date-picker.js', 'embed.js', 'promotion.js', 'style.css']) {
     const source = await readFile(new URL(name, root), 'utf8');
     assert.ok(!/localStorage|sessionStorage|document\.cookie|sendBeacon|https?:\/\//.test(source), name);
   }

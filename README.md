@@ -66,6 +66,24 @@ benötigt eine ausdrücklich angepasste Herkunftsfreigabe. Die Berechnung funkti
 auch ohne automatische Höhenanpassung. Alte feste Mindestbreiten und die um den
 früheren Rechner angeordneten Beschriftungen auf der Hostseite entfernen.
 
+## Datums- und Zeiteingabe
+
+Das Datum wird immer in der Reihenfolge **Tag–Monat–Jahr** eingegeben:
+`TT-MM-JJJJ` bzw. `DD-MM-YYYY`, z. B. `31-01-2020`.
+Punkte und Schrägstriche werden ebenfalls akzeptiert und anschließend einheitlich
+angezeigt. Die Uhrzeit verwendet das **24-Stunden-Format** `HH:MM`, optional
+mit Sekunden (`HH:MM:SS`), z. B. `15:30` oder `15:30:45`. Stunden gehen von
+00 bis 23, Minuten und Sekunden von 00 bis 59. AM/PM wird nicht verwendet.
+
+Die Kalender-Schaltfläche öffnet einen größeren, widgeteigenen Kalender mit
+Monats- und Jahresauswahl für 1900–2100. Die Monatsnamen, Wochentage und
+Bedienelemente folgen ausdrücklich der gewählten Widget-Sprache; bei EN
+erscheinen beispielsweise January und February unabhängig von der Systemsprache.
+Tage können per Mausklick, Touch oder mit Pfeiltasten und Enter ausgewählt
+werden. Bild auf/ab wechselt den Monat, mit Umschalt zusätzlich das Jahr.
+Escape schließt die Auswahl ohne Änderung. In eingebetteten Ansichten wird
+der Kalender beim Datumsfeld positioniert und in den sichtbaren Bereich gebracht.
+
 ## Funktionsumfang
 
 - Jahre 1900–2100, optionale Sekunden und vollständige Datumswechsel.
@@ -101,7 +119,7 @@ gesetzlichen Änderungen aktualisiert werden.
 - `app.js`, `index.html`, `style.css`: Oberfläche und lokale Ortssuche.
 - `promotion.js`: Regeln für den gelegentlichen App-Hinweis.
 - `data/manifest.json`: Datenstand, Herkunft und Prüfsummen.
-- `tests/`: 24 Tests einschließlich 36 Swift-Vergleichsfällen, Zeitzonenübergängen,
+- `tests/`: 29 Tests einschließlich 36 Swift-Vergleichsfällen, Zeitzonenübergängen,
   Datenintegrität, Jahreswechseln und Popup-Begrenzung.
 - `upstream/`: ursprüngliche astronomische Swift-Quelldateien zur Nachvollziehbarkeit
   und Erzeugung der Referenzfälle, mit erhaltenen Urheberhinweisen.

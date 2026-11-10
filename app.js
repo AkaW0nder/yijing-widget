@@ -1,6 +1,7 @@
 import { parseCivil, civilTimestamp, resolveCivil, parseLongitude, parseOffset,
   calculateSolarTime, formatOffset, formatDuration, solarClock, solarDate } from './core/time.js';
 import { installPromotion } from './promotion.js';
+import { installDatePicker, normalizeClockInput } from './date-picker.js';
 
 const words = {
   de: {
@@ -8,6 +9,11 @@ const words = {
     intro: 'Von der Uhrzeit zur Sonnenzeit. Berechne die mittlere und wahre Ortszeit für deinen Geburtsort.',
     inputTitle: 'Deine Angaben', example: 'Beispiel laden', date: 'Geburtsdatum', dateHint: 'Jahre 1900–2100',
     time: 'Lokale Uhrzeit', timeHint: 'Wie am Geburtsort aufgezeichnet', country: 'Land', city: 'Geburtsort',
+    datePlaceholder: 'TT-MM-JJJJ', dateFormat: 'TT-MM-JJJJ · z. B. 31-01-2020', timeFormat: '24 h · HH:MM, optional :SS',
+    calendarOpen: 'Kalender öffnen', calendarClose: 'Kalender schließen', calendarEyebrow: 'DATUM AUSWÄHLEN',
+    calendarTitle: 'Dein Geburtsdatum', calendarMonth: 'Monat', calendarYear: 'Jahr',
+    calendarPrevious: 'Vorheriger Monat', calendarNext: 'Nächster Monat',
+    calendarHelp: 'Tag anklicken zum Übernehmen. Mit den Pfeiltasten navigieren, mit Enter auswählen.',
     cityPlaceholder: 'Stadt suchen …', cityHint: 'Ort auswählen oder Koordinaten unten eingeben.',
     loading: 'Daten werden geladen …', advanced: 'Koordinaten & Zeitzone bearbeiten',
     manualHint: 'Für fehlende Orte: Längengrad und Zeitzone selbst eingeben. Die Zeitzone lässt sich nicht allein aus dem Längengrad ableiten.',
@@ -28,7 +34,7 @@ const words = {
     coverage: 'Ortsliste: weltweit größere Städte und Hauptstädte; zusätzliche Orte in Österreich, Deutschland und der Schweiz. Fehlende Orte können manuell eingegeben werden.',
     sources: 'Ortsdaten:', zoneSource: 'Zeitzonen:', notices: 'Quellenhinweise',
     noStorage: 'Keine Cookies, keine Analysewerkzeuge, keine Speicherung deiner Geburtsangaben. Ortssuche und Berechnung erfolgen lokal mit den mitgelieferten Daten.',
-    invalidDate: 'Bitte ein gültiges Datum von 1900 bis 2100 und eine gültige lokale Uhrzeit eingeben.',
+    invalidDate: 'Bitte Datum als TT-MM-JJJJ (1900–2100) und Uhrzeit im 24-Stunden-Format HH:MM eingeben. Stunden: 00–23, Minuten/Sekunden: 00–59; Sekunden sind optional.',
     invalidLongitude: 'Bitte einen Ort aus der Liste wählen oder einen Längengrad zwischen −180 und +180 eingeben.',
     invalidZone: 'Bitte eine Zeitzone aus der Liste wählen, z. B. Europe/Vienna.',
     invalidOffset: 'Bitte den UTC-Abstand als +HH:MM oder −HH:MM eingeben (maximal ±14:00). Sekunden sind optional.',
@@ -59,6 +65,11 @@ const words = {
     intro: 'From clock time to solar time. Find the mean and apparent solar time for your birth place.',
     inputTitle: 'Your details', example: 'Load example', date: 'Date of birth', dateHint: 'Years 1900–2100',
     time: 'Local clock time', timeHint: 'As recorded at the birth place', country: 'Country', city: 'Birth place',
+    datePlaceholder: 'DD-MM-YYYY', dateFormat: 'DD-MM-YYYY · e.g. 31-01-2020', timeFormat: '24 h · HH:MM, optional :SS',
+    calendarOpen: 'Open calendar', calendarClose: 'Close calendar', calendarEyebrow: 'CHOOSE A DATE',
+    calendarTitle: 'Your date of birth', calendarMonth: 'Month', calendarYear: 'Year',
+    calendarPrevious: 'Previous month', calendarNext: 'Next month',
+    calendarHelp: 'Click a day to use it. Navigate with the arrow keys and select with Enter.',
     cityPlaceholder: 'Search for a town or city …', cityHint: 'Select a place, or enter coordinates below.',
     loading: 'Loading local data …', advanced: 'Edit coordinates & time zone',
     manualHint: 'For a missing place, enter its longitude and time zone. Longitude alone does not determine the time zone.',
@@ -79,7 +90,7 @@ const words = {
     coverage: 'Place list: larger cities and capitals worldwide, with additional places in Austria, Germany and Switzerland. Missing places can be entered manually.',
     sources: 'Place data:', zoneSource: 'Time zones:', notices: 'Source notices',
     noStorage: 'No cookies, no analytics and no storage of your birth details. Place search and calculation run locally using the bundled data.',
-    invalidDate: 'Enter a valid date from 1900 to 2100 and a valid local clock time.',
+    invalidDate: 'Enter the date as DD-MM-YYYY (1900–2100) and the time in 24-hour format HH:MM. Hours: 00–23, minutes/seconds: 00–59; seconds are optional.',
     invalidLongitude: 'Select a place from the results, or enter a longitude between −180 and +180.',
     invalidZone: 'Select a time zone from the list, for example Europe/Vienna.',
     invalidOffset: 'Enter a UTC offset as +HH:MM or −HH:MM (maximum ±14:00). Seconds are optional.',
@@ -139,6 +150,9 @@ const germanRegions = {
   Bavaria: 'Bayern', 'Baden-Wurttemberg': 'Baden-Württemberg',
 };
 const regionName = (place) => language === 'de' ? germanRegions[place.region] || place.region : place.region;
+const datePicker = installDatePicker({
+  input: $('date'), trigger: $('calendar-trigger'), dialog: $('date-calendar'), getLanguage: () => language,
+});
 
 function countryName(country) {
   try { return new Intl.DisplayNames([language], { type: 'region' }).of(country.code); }
@@ -305,7 +319,7 @@ function calculate({ promote = false } = {}) {
   $('result').hidden = true;
   $('empty-result').hidden = false;
   try {
-    const civil = parseCivil($('date').value, $('time').value);
+    const civil = parseCivil(datePicker.isoValue(), normalizeClockInput($('time').value));
     const longitude = parseLongitude($('longitude').value);
     const zone = $('zone').value.trim();
     let resolved;
@@ -365,6 +379,7 @@ function translate() {
   }
   updatePlace();
   renderResult();
+  datePicker.refreshLanguage();
 }
 
 $('calculator').addEventListener('submit', (event) => { event.preventDefault(); closeSearch(); calculate({ promote: true }); });
@@ -385,6 +400,9 @@ $('calculator').addEventListener('input', (event) => {
 $('country').addEventListener('change', () => loadCountry($('country').value));
 $('override').addEventListener('change', () => { $('offset-field').hidden = !$('override').checked; });
 $('occurrence').addEventListener('change', () => calculate({ promote: true }));
+$('time').addEventListener('blur', () => {
+  try { $('time').value = normalizeClockInput($('time').value); } catch { /* Keep invalid text for validation. */ }
+});
 $('longitude-sign').addEventListener('click', () => {
   const value = $('longitude').value.trim();
   $('longitude').value = value.startsWith('-') ? value.slice(1) : `-${value.replace(/^\+/, '')}`;
@@ -420,7 +438,7 @@ async function loadExample() {
   $('country').value = 'AT';
   if (!await loadCountry('AT')) return;
   choosePlace(cities.find((city) => city.name === 'Graz'));
-  $('date').value = '2020-01-31';
+  datePicker.setISO('2020-01-31');
   $('time').value = '15:00:00';
   $('advanced').open = false;
   sample = true;

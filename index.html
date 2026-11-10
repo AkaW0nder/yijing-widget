@@ -7,8 +7,8 @@
   <meta name="description" content="Lokale Geburtszeit in mittlere und wahre Ortszeit umrechnen. Deutsch und Englisch, ohne externe Berechnungsdienste.">
   <title>Zeitkorrektur · Yi Jing</title>
   <link rel="icon" href="./sun.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./style.css">
-  <script type="module" src="./app.js"></script>
+  <link rel="stylesheet" href="./style.css?v=1.2.0">
+  <script type="module" src="./app.js?v=1.2.0"></script>
 </head>
 <body>
   <main class="widget">
@@ -30,9 +30,9 @@
       <section class="input-panel" aria-labelledby="input-title">
         <div class="section-heading"><span class="step">01</span><h2 id="input-title" data-i18n="inputTitle">Deine Angaben</h2><button class="text-button" id="example" type="button" data-i18n="example">Beispiel laden</button></div>
         <form id="calculator" novalidate>
-          <div class="two-fields">
-            <div class="field"><label for="date" data-i18n="date">Geburtsdatum</label><input id="date" name="date" type="date" min="1900-01-01" max="2100-12-31" value="2020-01-31" required><span class="field-hint" data-i18n="dateHint">Jahre 1900–2100</span></div>
-            <div class="field"><label for="time" data-i18n="time">Lokale Uhrzeit</label><input id="time" name="time" type="time" step="1" value="15:00:00" required><span class="field-hint" data-i18n="timeHint">Wie am Geburtsort aufgezeichnet</span></div>
+          <div class="two-fields date-time-fields">
+            <div class="field"><label for="date" data-i18n="date">Geburtsdatum</label><div class="date-entry"><input id="date" name="date" type="text" inputmode="text" value="31-01-2020" placeholder="TT-MM-JJJJ" data-placeholder="datePlaceholder" aria-describedby="date-format date-range" autocomplete="off" required><button id="calendar-trigger" type="button" aria-haspopup="dialog" aria-controls="date-calendar" aria-expanded="false" data-aria="calendarOpen" aria-label="Kalender öffnen"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M7 2v6m10-6v6M3 11h18"></path></svg></button></div><span id="date-format" class="field-hint format-hint" data-i18n="dateFormat">TT-MM-JJJJ · z. B. 31-01-2020</span><span id="date-range" class="field-hint" data-i18n="dateHint">Jahre 1900–2100</span></div>
+            <div class="field"><label for="time" data-i18n="time">Lokale Uhrzeit</label><input id="time" name="time" type="text" inputmode="text" value="15:00:00" placeholder="HH:MM" aria-describedby="time-format time-help" autocomplete="off" required><span id="time-format" class="field-hint format-hint" data-i18n="timeFormat">24 h · HH:MM, optional :SS</span><span id="time-help" class="field-hint" data-i18n="timeHint">Wie am Geburtsort aufgezeichnet</span></div>
           </div>
           <div class="field"><label for="country" data-i18n="country">Land</label><select id="country" name="country" disabled><option data-i18n="loading">Daten werden geladen …</option></select></div>
           <div class="field city-field">
@@ -84,6 +84,13 @@
     </aside>
 
     <footer class="footer"><p><span class="footer-sun" aria-hidden="true">☉</span><span data-i18n="footer">Die Uhr folgt der Zeitzone. Die Sonne folgt dem Ort.</span></p><details><summary data-i18n="dataSources">Daten & Hinweise</summary><p id="data-version"></p><p data-i18n="coverage">Ortsliste: weltweit größere Städte und Hauptstädte; zusätzliche Orte in Österreich, Deutschland und der Schweiz. Fehlende Orte können manuell eingegeben werden.</p><p><span data-i18n="sources">Ortsdaten:</span> <a href="https://www.geonames.org/" target="_blank" rel="noopener noreferrer">GeoNames</a> · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>. <span data-i18n="zoneSource">Zeitzonen:</span> <a href="https://www.iana.org/time-zones" target="_blank" rel="noopener noreferrer">IANA</a>. <a href="./NOTICE.txt" data-i18n="notices">Quellenhinweise</a>.</p><p data-i18n="noStorage">Keine Cookies, keine Analysewerkzeuge, keine Speicherung deiner Geburtsangaben. Ortssuche und Berechnung erfolgen lokal mit den mitgelieferten Daten.</p></details></footer>
+    <dialog id="date-calendar" class="date-calendar" aria-labelledby="calendar-title" aria-describedby="calendar-help">
+      <header class="calendar-header"><div><p class="eyebrow" data-i18n="calendarEyebrow">DATUM AUSWÄHLEN</p><h2 id="calendar-title" data-i18n="calendarTitle">Dein Geburtsdatum</h2></div><button id="calendar-close" type="button" data-aria="calendarClose" aria-label="Kalender schließen">×</button></header>
+      <div class="calendar-selectors"><label><span data-i18n="calendarMonth">Monat</span><select id="calendar-month"></select></label><label><span data-i18n="calendarYear">Jahr</span><select id="calendar-year"></select></label></div>
+      <div class="calendar-navigation"><button id="calendar-previous" type="button" data-aria="calendarPrevious" aria-label="Vorheriger Monat">‹</button><p id="calendar-caption" aria-live="polite"></p><button id="calendar-next" type="button" data-aria="calendarNext" aria-label="Nächster Monat">›</button></div>
+      <div id="calendar-weekdays" class="calendar-weekdays" aria-hidden="true"></div><div id="calendar-days" class="calendar-days" role="group" aria-labelledby="calendar-caption"></div>
+      <p id="calendar-help" class="field-hint" data-i18n="calendarHelp">Tag anklicken zum Übernehmen. Mit den Pfeiltasten navigieren, mit Enter auswählen.</p>
+    </dialog>
     <dialog id="app-promo-dialog" class="promo-dialog" aria-labelledby="promo-dialog-title" aria-describedby="promo-dialog-text">
       <div class="promo-dialog-cover"><img src="./app-icon.png" width="80" height="80" alt="YiJing Astro"><span>YiJing Astro</span><button type="button" class="promo-close" data-promo-dismiss data-aria="promoClose" aria-label="App-Hinweis schließen" autofocus>×</button></div>
       <div class="promo-dialog-body"><p class="promo-eyebrow" data-i18n="promoDialogEyebrow">VON DER SONNENZEIT ZU DEINEM YI JING</p><h2 id="promo-dialog-title" data-i18n="promoDialogTitle">Mehr entdecken. Zusammenhänge erkennen.</h2><p id="promo-dialog-text" data-i18n="promoDialogText">Deine Zeitkorrektur ist berechnet. Mit YiJing Astro gehst du weiter: Erkunde deine Lebenshexagramme und verfolge ihre Entwicklung im Zeitspiegel.</p>
